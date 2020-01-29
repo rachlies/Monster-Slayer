@@ -11,6 +11,7 @@ new Vue({
             this.isGameRunning = true;
             this.playerHealth = 100;
             this.monsterHealth = 100;
+            this.turns = [];
         },
         endGame: function () {
             this.isGameRunning = false;
