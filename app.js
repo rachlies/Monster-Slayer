@@ -4,6 +4,7 @@ new Vue({
         playerHealth: 100,
         monsterHealth: 100,
         isGameRunning: false,
+        turns : [],
     },
     methods: {
         startGame : function(){
@@ -15,7 +16,12 @@ new Vue({
             this.isGameRunning = false;
         },
         attack: function() {
-            this.monsterHealth -= this.calculateDamage(3, 10);
+            const damage = this.calculateDamage(3, 10);
+            this.monsterHealth -= damage;
+            this.turns.unshift({
+                isPlayer: true,
+                text: "Player hits monster for " + damage,
+            });
             if(this.check()) {
                 return;
             }
@@ -34,8 +40,13 @@ new Vue({
         },
 
         monsterAttack: function() {
-            this.playerHealth -= this.calculateDamage(5, 12);
+            const damage = this.calculateDamage(5, 12);
+            this.playerHealth -= damage;
             this.check();
+            this.turns.unshift({
+                isPlayer: false,
+                text: "Player hits monster for " + damage,
+            });
         },
 
         calculateDamage: function (min, max) {
