@@ -29,7 +29,12 @@ new Vue({
             this.monsterAttack();
         },
         specialAttack: function () {
-            this.monsterHealth -= this.calculateDamage(10, 20);
+            const damage = this.calculateDamage(10, 20);;
+            this.monsterHealth -= damage;
+            this.turns.unshift({
+                isPlayer: true,
+                text: "Player hits monster hard for " + damage,
+            });
             if(this.check()) {
                 return;
             }
@@ -37,17 +42,21 @@ new Vue({
         },
         heal: function() {
             this.playerHealth = this.playerHealth < 90 ? this.playerHealth+10 : 100;
+            this.turns.unshift({
+                isPlayer: true,
+                text: "Player heals by 10",
+            });
             this.monsterAttack();
         },
 
         monsterAttack: function() {
             const damage = this.calculateDamage(5, 12);
             this.playerHealth -= damage;
-            this.check();
             this.turns.unshift({
                 isPlayer: false,
                 text: "Monster hits player for " + damage,
             });
+            this.check();
         },
 
         calculateDamage: function (min, max) {
