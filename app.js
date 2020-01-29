@@ -45,7 +45,7 @@ new Vue({
             this.check();
             this.turns.unshift({
                 isPlayer: false,
-                text: "Player hits monster for " + damage,
+                text: "Monster hits player for " + damage,
             });
         },
 
